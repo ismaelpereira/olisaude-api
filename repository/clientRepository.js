@@ -64,6 +64,19 @@ export const getClient = (id) => {
   });
 };
 
+export const getClientsWithMoreRisks = () => {
+  c = clients;
+
+  clients.map(
+    (clients, i) =>
+      (c[i] = clients.healthProblems.reduce(
+        (acc, prob) => (acc += prob.grade),
+        0
+      ))
+  );
+  return c.sort((a, b) => b - a);
+};
+
 export const createClient = (...props) => {
   c = new Client(props, crypto.randomUUID());
   clients.push(c);
